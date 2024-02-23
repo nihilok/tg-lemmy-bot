@@ -64,8 +64,8 @@ async def run_task():
         await notify_channel(chat_id)
 
 
-async def notify_channel(chat_id, hot=False):
-    posts = get_top_posts_and_hot_posts()
+async def notify_channel(chat_id, limit=3, hot=False):
+    posts = get_top_posts_and_hot_posts(limit=limit)
     if hot:
         await send_message(chat_id, "HOT POSTS")
         for post in posts.hot:
@@ -80,14 +80,28 @@ def run_task_synchronous():
     asyncio.run(run_task())
 
 
+async def parse_limit(message):
+    message_parts = message.split()
+    if len(message_parts) > 2:
+        return
+    try:
+        limit = int(message_parts[1])
+        print(limit)
+        return limit
+    except ValueError:
+        pass
+
+
 @restrict
 async def get_top_posts_handler(update, context):
-    await notify_channel(update.effective_chat.id)
+    limit = await parse_limit(update.message.text)
+    await notify_channel(update.effective_chat.id, limit)
 
 
 @restrict
 async def get_hot_posts_handler(update, context):
-    await notify_channel(update.effective_chat.id, hot=True)
+    limit = await parse_limit(update.message.text)
+    await notify_channel(update.effective_chat.id, limit, hot=True)
 
 
 class RedditBot(TGBasebot):

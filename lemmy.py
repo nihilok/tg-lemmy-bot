@@ -64,7 +64,7 @@ class Posts:
         return dict(top=self.top, hot=self.hot)
 
 
-def get_top_posts_and_hot_posts(url=lemmy_url, limit=3):
+def get_top_posts_and_hot_posts(*, url=lemmy_url, limit=3):
     top_posts = lemmy_top_posts(url, limit)
     hot_posts = lemmy_hot_posts(url, limit)
     return Posts(top=top_posts, hot=hot_posts)
