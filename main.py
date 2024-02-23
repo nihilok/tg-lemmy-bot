@@ -65,13 +65,17 @@ async def run_task():
 
 
 async def notify_channel(chat_id, limit=3, hot=False):
+    if limit > 10:
+        limit = 10
     posts = get_top_posts_and_hot_posts(limit=limit)
     if hot:
-        await send_message(chat_id, "HOT POSTS")
+        if limit > 1:
+            await send_message(chat_id, f"{limit} HOTTEST POSTS")
         for post in posts.hot:
             await send_message(chat_id, create_markdown_message(post))
     else:
-        await send_message(chat_id, "TOP POSTS")
+        if limit > 1:
+            await send_message(chat_id, f"{limit} TOP POSTS")
         for post in posts.top:
             await send_message(chat_id, create_markdown_message(post))
 
