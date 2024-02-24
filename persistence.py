@@ -12,32 +12,32 @@ logger = logging.getLogger("persistence")
 
 
 def create_user_persistence():
-    with open(USERS_PATH, "w") as f:
+    with USERS_PATH.open("w") as f:
         json.dump({"users": ALLOWED_USERS}, f)
 
 
 def create_group_persistence():
-    with open(GROUPS_PATH, "w") as f:
+    with GROUPS_PATH.open("w") as f:
         json.dump({"groups": ALLOWED_CHATS}, f)
 
 
 def save_users(users: list[int]):
-    with open(USERS_PATH, "w") as f:
+    with USERS_PATH.open("w") as f:
         json.dump({"users": users}, f)
 
 
 def save_groups(groups: list[int]):
-    with open(GROUPS_PATH, "w") as f:
+    with GROUPS_PATH.open("w") as f:
         json.dump({"groups": groups}, f)
 
 
 def get_users() -> list[int]:
-    with open(USERS_PATH, "r") as f:
+    with USERS_PATH.open("r") as f:
         return json.load(f)["users"]
 
 
 def get_groups() -> list[int]:
-    with open(GROUPS_PATH, "r") as f:
+    with GROUPS_PATH.open("r") as f:
         return json.load(f)["groups"]
 
 

@@ -51,12 +51,15 @@ def escape_md(s: str):
 def create_markdown_message(post: Post):
     show_body = post.url is None
 
-    return f"""
+    msg = f"""
 <b><a href="{post.url}">{post.name}</a></b>
 {"<i>" + post.content + "</i>" if show_body else""}
 Votes: {post.score}
-Community: {post.community}
-"""
+Community: {post.community}"""
+    if post.comments_url:
+        msg += f"""
+<a href="{post.comments_url}">View post & comments</a>"""
+    return msg
 
 
 async def run_task():

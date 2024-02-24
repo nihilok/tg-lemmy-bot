@@ -25,6 +25,7 @@ class Post:
     community: str
     sort: Sort
     url: Optional[str] = None
+    comments_url: Optional[str] = None
     image: Optional[str] = None
     content: Optional[str] = None
 
@@ -36,6 +37,7 @@ def parse_post(post, sort):
         community=post["community"]["title"],
         sort=sort,
         url=post["post"].get("url"),
+        comments_url=post["post"].get("ap_id"),
         image=post["post"].get("thumbnail_url"),
         content=post["post"].get("body"),
     )
