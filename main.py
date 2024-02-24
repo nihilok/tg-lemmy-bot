@@ -64,7 +64,9 @@ async def run_task():
         await notify_channel(chat_id)
 
 
-async def notify_channel(chat_id, limit=3, hot=False):
+async def notify_channel(chat_id, limit=None, hot=False):
+    if not limit:
+        limit = 3
     if limit > 10:
         limit = 10
     posts = get_top_posts_and_hot_posts(limit=limit)
