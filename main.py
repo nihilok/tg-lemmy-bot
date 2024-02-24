@@ -88,7 +88,7 @@ def run_task_synchronous():
 
 async def parse_limit(message):
     message_parts = message.split()
-    if len(message_parts) > 2:
+    if len(message_parts) == 1 or len(message_parts) > 2:
         return
     try:
         limit = int(message_parts[1])
